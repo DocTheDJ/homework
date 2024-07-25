@@ -10,6 +10,8 @@ Linux: `source env/bin/activate`
 
 Windows: `.\env\Scripts\activate`
 
+`pip install -r requirements.txt`
+
 `python3 manage.py migrate`
 
 `python3 manage.py runserver`
