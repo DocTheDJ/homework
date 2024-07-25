@@ -11,7 +11,7 @@ utils.register()
 # Create your views here.
 @api_view(['POST'])
 def importData(request):
-    print(parseData(request.data))
+    parseData(request.data)
     return Response()
 
 @api_view(['GET'])
@@ -22,13 +22,17 @@ def getAllData(request):
 def detail(request, name):
     if name == None:
         return Response("Missing name", status=206)
+    # get model name from current project
     if (model := apps.all_models.get(QuickstartConfig.name).get(name)) != None:
+        # get all from model
         queryset = model.objects.all()
+        # serialize data from queryset
         ser_instance = utils.get_serializer_instace(name, data=queryset, many=True)
         if not ser_instance.is_valid():
             return Response(ser_instance.data)
         else:
-            return Response(ser_instance)
+            return Response(serialize('json', queryset))
+    # if the name is not matched send back list of available
     return Response(apps.all_models.get(QuickstartConfig.name).keys())
 
 @api_view(['GET'])
@@ -43,5 +47,5 @@ def detailOne(request, name, id):
         if not ser_instance.is_valid():
             return Response(ser_instance.data)
         else:
-            return Response(ser_instance)
+            return Response(serialize('json', queryset))
     return Response(apps.all_models.get(QuickstartConfig.name).keys())

@@ -9,6 +9,7 @@ serializer_registry = {}
 def register_serializer(model_class, serializer_class):
     serializer_registry[model_class.__name__] = serializer_class
 
+#register serializers to their model names
 def register():
     register_serializer(models.AttributeName, serializers.AttributeNameSerializer)
     register_serializer(models.AttributeValue, serializers.AttributeValueSerializer)
@@ -19,6 +20,7 @@ def register():
     register_serializer(models.Product, serializers.ProductSerializer)
     register_serializer(models.Catalog, serializers.CatalogSerializer)
 
+#get serializer by name and then convert
 def get_serializer_instace(model_name, *args, **kwargs) -> rsSerializers.ModelSerializer:
     model_class = apps.get_model(app_label=QuickstartConfig.name, model_name=model_name)
     serializer_class = serializer_registry.get(model_class.__name__)

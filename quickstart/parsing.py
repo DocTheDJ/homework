@@ -1,7 +1,7 @@
 
 import quickstart.models as models
 
-
+# at times it is better to use static mapping instead of general solution
 def parseData(data):
     attributeValues: dict[int, models.AttributeValue] = {}
     attributeNames: dict[int, models.AttributeName] = {}
@@ -12,7 +12,6 @@ def parseData(data):
         for i in data:
             if type(i) == dict:
                 key = list(i.keys())[0]
-                print(key)
                 if key == None:
                     return
                 if type(val := i.get(key)) == dict:
@@ -73,10 +72,3 @@ def parseData(data):
                                     obj.attributes_ids.set(attributes_l)
                         case _:
                             pass
-
-
-# def setWanted(target: dict, new, newD: dict):
-#     if (l := target.get(new.id)) == None:
-#         target[new.id] = new
-#     else:
-#         target[new.id] = l.merge(newD)

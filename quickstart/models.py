@@ -1,5 +1,7 @@
 from django.db import models
 
+# all models should reflect incoming data acording to the example
+
 class AttributeName(models.Model):
     id = models.IntegerField(primary_key=True)
     nazev = models.TextField()
